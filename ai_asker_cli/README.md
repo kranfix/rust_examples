@@ -1,7 +1,7 @@
 # OpenAI CLI
 
 This project is inspired in this
-[video](https://www.youtube.com/watch?v=5WhJQMnJjik&t=565s)
+[video](https://www.youtube.com/watch?v=5WhJQMnJjik)
 from `Code to the Moon` YouTube channel, but refactored to handle
 abstractions for both addings tests and generalizing the code to work with
 others AI providers in the future.
