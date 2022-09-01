@@ -1,5 +1,6 @@
 mod config;
 mod handlers;
+mod models;
 
 use crate::config::Config;
 use actix_web::{middleware::Logger, web, App, HttpServer};
@@ -10,10 +11,13 @@ use tracing::info;
 async fn main() -> Result<()> {
   let config = Config::from_env().expect("Server configuration");
 
+  let pool = config.db_pool().await.expect("Database configuration");
+
   info!("Starting server at http://{}:{}", config.host, config.port);
   HttpServer::new(move || {
     App::new() //
       .wrap(Logger::default())
+      .app_data(pool.clone())
       .route("/", web::get().to(|| async { "Hello, there!" }))
       .service(
         web::scope("/hello") //

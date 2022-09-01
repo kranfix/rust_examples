@@ -1,7 +1,10 @@
+use std::time::Duration;
+
 use color_eyre::Result;
 use dotenv::dotenv;
 use eyre::WrapErr;
 use serde::Deserialize;
+use sqlx::{postgres::PgPoolOptions, PgPool};
 use tracing::info;
 use tracing_subscriber::EnvFilter;
 
@@ -9,6 +12,7 @@ use tracing_subscriber::EnvFilter;
 pub struct Config {
   pub host: String,
   pub port: i32,
+  pub database_url: String,
 }
 
 impl Config {
@@ -27,5 +31,15 @@ impl Config {
 
     c.try_into()
       .context("loading configuration from environment")
+  }
+
+  pub async fn db_pool(&self) -> Result<PgPool> {
+    info!("Creting database connection pool.");
+
+    PgPoolOptions::new()
+      .acquire_timeout(Duration::from_secs(30))
+      .connect(&self.database_url)
+      .await
+      .context("Creating database connection pool")
   }
 }
