@@ -12,12 +12,14 @@ async fn main() -> Result<()> {
   let config = Config::from_env().expect("Server configuration");
 
   let pool = config.db_pool().await.expect("Database configuration");
+  let crypto_service = config.crypto_service();
 
   info!("Starting server at http://{}:{}", config.host, config.port);
   HttpServer::new(move || {
     App::new() //
       .wrap(Logger::default())
       .app_data(pool.clone())
+      .app_data(crypto_service.clone())
       .route("/", web::get().to(|| async { "Hello, there!" }))
       .service(
         web::scope("/hello") //
