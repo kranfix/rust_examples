@@ -4,7 +4,7 @@ use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-  let oai_token = env::var("OAI_TOKEN").unwrap();
+  let oai_token = env::var("OAI_TOKEN")?;
   let client = OAIClient::new(oai_token);
   run_cli(client).await
 }

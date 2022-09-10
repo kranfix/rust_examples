@@ -7,7 +7,7 @@ pub async fn run_cli(asker: impl Asker) -> Result<(), Box<dyn std::error::Error 
 
   loop {
     print!("> ");
-    stdout().flush().unwrap();
+    stdout().flush()?;
     let mut user_text = String::new();
 
     stdin()

@@ -78,8 +78,7 @@ impl OAIClientApi for OAIClient {
     let req = Request::post(&self.uri)
       .header(header::CONTENT_TYPE, &self.auth_header)
       .header("Authorization", &self.auth_header)
-      .body(body)
-      .unwrap();
+      .body(body)?;
 
     let res = self.client.request(req).await?;
     let body = hyper::body::aggregate(res).await?;
