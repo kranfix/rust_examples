@@ -3,10 +3,7 @@ use async_trait::async_trait;
 
 #[async_trait]
 impl<T: OAIClientApi> Asker for T {
-  async fn ask(
-    &self,
-    question: &String,
-  ) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+  async fn ask(&self, question: &str) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
     let json = self.request_completitions(question).await?;
     Ok(json.choices[0].text.to_owned())
   }
@@ -18,7 +15,7 @@ mod test {
   use crate::openai_client::*;
 
   fn completitions_mock(
-    question: &String,
+    question: &str,
   ) -> Result<OAIResponse, Box<dyn std::error::Error + Send + Sync>> {
     if question == "fail" {
       Err("failed")?
@@ -42,10 +39,10 @@ mod test {
         Box::pin(async { res })
       });
 
-    let answer = mock.ask(&"question".into()).await.unwrap();
+    let answer = mock.ask("question").await.unwrap();
     assert_eq!(answer, "This is an answer");
 
-    let answer = mock.ask(&"fail".into()).await.unwrap_err();
+    let answer = mock.ask("fail").await.unwrap_err();
     assert_eq!(format!("{answer}"), "failed");
   }
 }

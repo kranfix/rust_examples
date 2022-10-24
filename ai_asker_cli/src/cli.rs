@@ -14,15 +14,15 @@ pub async fn run_cli(asker: impl Asker) -> Result<(), Box<dyn std::error::Error 
       .read_line(&mut user_text)
       .expect("Failed to read line");
 
-    println!("");
+    println!();
 
     let mut sp = Spinner::new(Spinners::Dots4, "\t\tOpenAI is thinking...".into());
-    let text = user_text.trim().into();
-    let answer = asker.ask(&text).await?;
+    let text = user_text.trim();
+    let answer = asker.ask(text).await?;
 
     sp.stop();
 
-    println!("");
+    println!();
     println!("{answer}");
   }
 }

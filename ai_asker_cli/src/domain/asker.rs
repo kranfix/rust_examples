@@ -8,7 +8,7 @@ use async_trait::async_trait;
 pub trait Asker {
   async fn ask(
     &self,
-    question: &String,
+    question: &str,
   ) -> Result<String, Box<dyn std::error::Error + Send + Sync>>;
 }
 
@@ -30,7 +30,7 @@ impl FakeAsker {
 
 #[async_trait]
 impl Asker for FakeAsker {
-  async fn ask(&self, question: &String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+  async fn ask(&self, question: &str) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
     sleep(Duration::from_millis(self.millis)).await;
     if question == "fail" {
       Err("failed")?;
@@ -59,14 +59,14 @@ mod test {
     let fake = FakeAsker::new(100);
 
     for i in 0..fake.len {
-      let answer = aw!(fake.ask(&"question".into())).unwrap();
+      let answer = aw!(fake.ask("question")).unwrap();
       assert_eq!(answer[..8], format!("Answer {i}"));
     }
 
-    let answer = aw!(fake.ask(&"question".into())).unwrap();
+    let answer = aw!(fake.ask("question")).unwrap();
     assert_eq!(answer[..8], format!("Answer 0"));
 
-    let err = aw!(fake.ask(&"fail".into())).unwrap_err();
+    let err = aw!(fake.ask("fail")).unwrap_err();
     let err = format!("{err}");
     assert_eq!(err, "failed");
   }

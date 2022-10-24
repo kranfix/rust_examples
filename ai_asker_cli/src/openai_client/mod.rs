@@ -56,7 +56,7 @@ impl OAIClient {
 pub trait OAIClientApi: Send + Sync {
   async fn request_completitions(
     &self,
-    question: &String,
+    question: &str,
   ) -> Result<OAIResponse, Box<dyn std::error::Error + Send + Sync>>;
 }
 
@@ -64,7 +64,7 @@ pub trait OAIClientApi: Send + Sync {
 impl OAIClientApi for OAIClient {
   async fn request_completitions(
     &self,
-    question: &String,
+    question: &str,
   ) -> Result<OAIResponse, Box<dyn std::error::Error + Send + Sync>> {
     let preamble = "Answer the following question
   accurately, but find a funny way to mention
