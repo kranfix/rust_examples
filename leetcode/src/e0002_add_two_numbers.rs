@@ -51,4 +51,22 @@ mod test {
     let sum = Solution::add_two_numbers(l1, l2);
     assert_eq!(sum.to_vec(), [7, 0, 8]);
   }
+
+  #[test]
+  fn example_2() {
+    let l1 = vec![0].into_list_node();
+    let l2 = vec![0].into_list_node();
+
+    let sum = Solution::add_two_numbers(l1, l2);
+    assert_eq!(sum.to_vec(), [0]);
+  }
+
+  #[test]
+  fn example_3() {
+    let l1 = vec![9, 9, 9, 9, 9, 9, 9].into_list_node();
+    let l2 = vec![9, 9, 9, 9].into_list_node();
+
+    let sum = Solution::add_two_numbers(l1, l2);
+    assert_eq!(sum.to_vec(), [8, 9, 9, 9, 0, 0, 0, 1]);
+  }
 }
