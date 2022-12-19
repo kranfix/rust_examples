@@ -5,8 +5,8 @@ struct Solution;
 impl Solution {
   pub fn length_of_longest_substring(s: String) -> i32 {
     let mut chars: HashMap<char, usize> = HashMap::new();
-    let mut g = 0..0; // global (start, len)
-    let mut l = 0..0; // global (start, len)
+    let mut g = 0..0; // global (start, end)
+    let mut l = 0..0; // local (start, end)
     for (i, c) in s.char_indices() {
       l = match chars.get(&c) {
         Some(index) if index + 1 > l.start => (index + 1)..(i + 1),
