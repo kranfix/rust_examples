@@ -8,13 +8,11 @@ impl Solution {
 
 fn find_mean(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
   if nums1.is_empty() {
-    let last = nums2.len() - 1;
-    return find_median_in_sorted_arrays_by_index(nums2, 0, last);
+    return find_median_in_sorted_arrays_by_index(&nums2);
   }
 
   if nums2.is_empty() {
-    let last = nums1.len() - 1;
-    return find_median_in_sorted_arrays_by_index(nums1, 0, last);
+    return find_median_in_sorted_arrays_by_index(&nums1);
   }
 
   let total = nums1.len() + nums2.len();
@@ -64,10 +62,10 @@ fn find_mean(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
   }
 }
 
-fn find_median_in_sorted_arrays_by_index(nums: Vec<i32>, first: usize, last: usize) -> f64 {
-  let sum = first + last;
-  let mid = sum >> 1; // = sum / 2
-  if sum % 2 == 0 {
+fn find_median_in_sorted_arrays_by_index(nums: &[i32]) -> f64 {
+  let len = nums.len();
+  let mid = len >> 1; // = sum / 2
+  if len % 2 == 0 {
     nums[mid] as f64
   } else {
     ((nums[mid] + nums[mid + 1]) as f64) / 2.0
