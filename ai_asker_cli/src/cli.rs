@@ -1,18 +1,18 @@
 use crate::domain::Asker;
 use spinners::{Spinner, Spinners};
-use std::io::{stdin, stdout, Write};
+use tokio::io::{stdout, AsyncBufReadExt, AsyncWriteExt};
 
 pub async fn run_cli(asker: impl Asker) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
   println!("{esc}c", esc = 27 as char);
 
+  let mut stdin = tokio::io::BufReader::new(tokio::io::stdin());
+
   loop {
     print!("> ");
-    stdout().flush()?;
+    stdout().flush().await?;
     let mut user_text = String::new();
 
-    stdin()
-      .read_line(&mut user_text)
-      .expect("Failed to read line");
+    stdin.read_line(&mut user_text).await?;
 
     println!();
 
