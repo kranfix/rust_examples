@@ -10,3 +10,5 @@ pub mod e0004_median_of_two_sorted_arrays;
 pub mod e0041_first_missing_positive;
 
 pub mod e0053_maximun_subarray;
+
+pub mod e0120_triangle;
