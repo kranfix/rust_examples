@@ -9,13 +9,10 @@ impl Solution {
   }
 }
 
-fn good_triplets(
-  arr: &[i32],
-  a: i32,
-  b: i32,
-  c: i32,
-  f: &mut impl FnMut(&[i32], usize, usize, usize),
-) {
+fn good_triplets<F>(arr: &[i32], a: i32, b: i32, c: i32, f: &mut F)
+where
+  F: FnMut(&[i32], usize, usize, usize),
+{
   for i in 0..arr.len() - 2 {
     let x = arr[i];
     for j in (i + 1)..arr.len() - 1 {
