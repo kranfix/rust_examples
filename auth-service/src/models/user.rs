@@ -19,6 +19,8 @@ pub struct User {
 
 #[derive(Debug, Deserialize, Validate)]
 pub struct NewUser {
+  pub username: String,
+  pub email: String,
   #[validate(length(min = 3))]
   pub full_name: String,
   pub bio: String,

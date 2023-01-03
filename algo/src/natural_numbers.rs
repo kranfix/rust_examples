@@ -1,13 +1,17 @@
-use std::{sync::mpsc::channel, thread};
+use std::sync::mpsc::channel;
+use std::thread;
 
-fn print_natural_numbers(n: u64) {
+#[derive(Debug, Clone)]
+struct V(i32);
+
+pub fn print_natural_numbers(n: u64) {
   let (sender1, receiver1) = channel();
   let (sender2, receiver2) = channel();
 
   sender2.send(()).unwrap();
 
   thread::scope(|s| {
-    let t1 = s.spawn(move || {
+    let t0 = s.spawn(move || {
       for i in (1..=n).step_by(2) {
         receiver2.recv().unwrap();
         println!("T0: {i}");
@@ -18,7 +22,7 @@ fn print_natural_numbers(n: u64) {
       }
     });
 
-    let t2 = s.spawn(move || {
+    let t1 = s.spawn(move || {
       for i in (2..=n).step_by(2) {
         receiver1.recv().unwrap();
         println!("T1: {i}");
@@ -29,7 +33,7 @@ fn print_natural_numbers(n: u64) {
       }
     });
 
+    t0.join().unwrap();
     t1.join().unwrap();
-    t2.join().unwrap();
   });
 }
