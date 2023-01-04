@@ -1,6 +1,6 @@
 use std::{fmt::Display, ops::Mul};
 
-fn print_square_sorted(list: Vec<i64>) {
+pub fn print_square_sorted(list: Vec<i64>) {
   let mut f = |n: i64| print!("{n},");
   print!("[");
   square_sorted(list, i64::MAX, &mut f);

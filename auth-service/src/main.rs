@@ -1,4 +1,5 @@
 mod config;
+mod db;
 mod handlers;
 mod models;
 
@@ -18,14 +19,17 @@ async fn main() -> Result<()> {
   HttpServer::new(move || {
     App::new() //
       .wrap(Logger::default())
-      .app_data(pool.clone())
-      .app_data(crypto_service.clone())
+      .app_data(web::Data::new(pool.clone()))
+      .app_data(web::Data::new(crypto_service.clone()))
       .route("/", web::get().to(|| async { "Hello, there!" }))
       .service(
         web::scope("/hello") //
           .configure(crate::handlers::hello_scoped_config),
       )
-    //.service(crate::handlers::hello)
+      .service(
+        web::scope("/users") //
+          .configure(crate::handlers::user_scoped_config),
+      )
   })
   .bind(format!("{}:{}", config.host, config.port))?
   .run()
