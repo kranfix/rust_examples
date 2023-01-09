@@ -11,6 +11,8 @@ pub mod e0041_first_missing_positive;
 
 pub mod e0053_maximun_subarray;
 
+pub mod e0083_remove_duplicates_from_sorted_list;
+
 pub mod e0120_triangle;
 
 pub mod e1534_count_good_triplets;
