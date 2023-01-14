@@ -7,6 +7,8 @@ pub mod natural_numbers;
 pub mod rc_example;
 pub mod square_sorted;
 
+pub mod backtracking;
+
 use natural_numbers::print_natural_numbers;
 
 fn main() {
