@@ -21,7 +21,7 @@ async fn create(
   };
   let repo = UserRepository::new((*pool).clone());
 
-  match repo.create(new_user, &*crypto_service).await {
+  match repo.create(new_user, &crypto_service).await {
     Ok(user) => web::Json(user),
     Err(_) => todo!(),
   }
