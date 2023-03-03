@@ -1,10 +1,6 @@
 use std::collections::HashMap;
 
-use yrs::{
-    block::{EmbedPrelim, Prelim},
-    types::text::Diff,
-    MapPrelim, TransactionMut, XmlTextRef,
-};
+use yrs::types::text::Diff;
 
 fn main() {
     // sticky_index_example();
@@ -14,7 +10,6 @@ fn main() {
 
 fn text_test() {
     use lib0::any::Any;
-    use yrs::types::Attrs;
     use yrs::{Assoc, GetString, IndexedSequence};
     use yrs::{Doc, Text, Transact};
 
@@ -124,19 +119,19 @@ fn text_test() {
     // assert_eq!(are_lozenge, [false, false, false, true, false]);
 }
 
-fn is_lozenge<T>(diff: &Diff<T>) -> bool {
-    match &diff.attributes {
-        Some(attr) => attr.get("Lozenge").is_some(),
-        None => false,
-    }
-}
+// fn is_lozenge<T>(diff: &Diff<T>) -> bool {
+//     match &diff.attributes {
+//         Some(attr) => attr.get("Lozenge").is_some(),
+//         None => false,
+//     }
+// }
 
-fn is_text_embed<T>(diff: &Diff<T>) -> bool {
-    match &diff.attributes {
-        Some(attr) => attr.get("text-embed").is_some(),
-        None => false,
-    }
-}
+// fn is_text_embed<T>(diff: &Diff<T>) -> bool {
+//     match &diff.attributes {
+//         Some(attr) => attr.get("text-embed").is_some(),
+//         None => false,
+//     }
+// }
 
 // fn insert_text_embed<V>(xml: &XmlTextRef, txn: &mut TransactionMut) -> V::Return
 // where

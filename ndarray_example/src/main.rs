@@ -5,7 +5,7 @@ fn main() {
     // create array variable t from 0 to 10 with 100 elements
     let t = Array1::linspace(0., 10., 100).into_shape((100, 1)).unwrap();
     // create array y equal to the sine of t
-    let y = t.map(|t: &f64| t.sin());
+    // let y = t.map(|t: &f64| t.sin());
 
     let data: Vec<(f64, f64)> = t.iter().map(|t: &f64| (*t, t.sin())).collect();
 
