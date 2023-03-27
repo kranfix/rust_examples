@@ -1,0 +1,8 @@
+is-empty: func(text: string) -> bool
+
+resource request {
+    static new: func() -> request
+
+    //body: async func() -> list<u8>
+    headers: func() -> list<string>
+}
