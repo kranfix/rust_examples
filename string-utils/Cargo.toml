@@ -1,0 +1,19 @@
+[package]
+name = "string-utils"
+version = "0.1.0"
+edition = "2021"
+description = "Common string utils"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[package.metadata.wapm]
+namespace = 'kranfix'
+abi = "none"
+bindings = { wai-version = "0.1.0", exports = "string-utils.wai" }
+
+[dependencies]
+wai-bindgen-rust = "0.2.3"
+async-trait = "0.1.68"

@@ -1,0 +1,15 @@
+{
+  "name": "nodejs_example",
+  "version": "1.0.0",
+  "description": "Example of wapm",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.cjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kranfix",
+  "license": "ISC",
+  "dependencies": {
+    "@kranfix/string-utils": "https://registry-cdn.wapm.io/bindings/generator-0.7.0/npm/kranfix/string-utils/string-utils-0.1.0.tar.gz"
+  }
+}
