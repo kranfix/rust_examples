@@ -12,6 +12,30 @@ impl ListNode {
   }
 }
 
+impl std::fmt::Display for ListNode {
+  /// # ListNode display formatter
+  ///
+  /// ```
+  /// use leetcode::linked;
+  ///
+  /// let linked = linked!(1);
+  /// assert_eq!(linked.to_string(), "ListNode(1)");
+  ///
+  /// let linked = linked!(1,2,3,4);
+  /// assert_eq!(linked.to_string(), "ListNode(1 => 2 => 3 => 4)");
+  /// ```
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    vec![1];
+    write!(f, "ListNode({:?}", self.val)?;
+    let mut next = &self.next;
+    while let Some(node) = next {
+      write!(f, " => {:?}", node.val)?;
+      next = &node.next;
+    }
+    write!(f, ")")
+  }
+}
+
 #[cfg(test)]
 pub trait ToVec {
   fn to_vec(self) -> Vec<i32>;
@@ -45,4 +69,44 @@ impl IntoListNode for Vec<i32> {
     }
     head
   }
+}
+
+/// # linked!
+///
+/// This macro helps to create a [ListNode] easily.
+///
+/// ```
+/// use leetcode::linked;
+///
+/// // Default case
+/// let list = linked!();
+/// assert_eq!(list.val, 0);
+/// assert_eq!(list.next, None);
+///
+/// // One argument case
+/// let list = linked!(1);
+/// assert_eq!(list.val, 1);
+/// assert_eq!(list.next, None);
+///
+/// // Many arguments case
+/// let list = linked!(1,2,3);
+/// assert_eq!(list.val, 1);
+/// let next = list.next.unwrap();
+/// assert_eq!(next.val, 2);
+/// let next = next.next.unwrap();
+/// assert_eq!(next.val, 3);
+/// assert_eq!(next.next, None);
+/// ```
+#[macro_export]
+macro_rules! linked {
+
+  () => {
+    $crate::helpers::ListNode::new(0)
+  };
+  ($x:expr $(,)?) => {
+    $crate::helpers::ListNode{val:$x,next:None}
+  };
+  ($x:expr,$($y:expr),+) => {
+    $crate::helpers::ListNode{val:$x,next:Some(Box::new(linked!($($y),+)))}
+  };
 }
