@@ -16,3 +16,5 @@ pub mod e0083_remove_duplicates_from_sorted_list;
 pub mod e0120_triangle;
 
 pub mod e1534_count_good_triplets;
+
+pub mod e0912_sort_an_array;
